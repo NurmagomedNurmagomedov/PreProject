@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class Util {
     // Константы для подключения к базе данных
-    private static final String URL = "jdbc:postgresql://localhost:5432/studentdb"; // Замените на вашу базу
-    private static final String USERNAME = "your_username"; // Ваше имя пользователя
-    private static final String PASSWORD = "your_password"; // Ваш пароль
+    private static final String URL = "jdbc:postgresql://localhost:5432/preproject"; // Замените на вашу базу
+    private static final String USERNAME = "preproject"; // Ваше имя пользователя
+    private static final String PASSWORD = "123"; // Ваш пароль
 
     static {
         try {
