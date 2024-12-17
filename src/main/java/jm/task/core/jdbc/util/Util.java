@@ -5,10 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Util {
+    private Util() {
+    }
+
     // Константы для подключения к базе данных
-    private static final String URL = "jdbc:postgresql://localhost:5432/preproject"; // Замените на вашу базу
-    private static final String USERNAME = "preproject"; // Ваше имя пользователя
-    private static final String PASSWORD = "123"; // Ваш пароль
+    private static final String URL = "jdbc:postgresql://localhost:5432/PreProject";
+    private static final String USERNAME = "preproject"; // имя пользователя
+    private static final String PASSWORD = "123"; // пароль
 
     static {
         try {
@@ -19,10 +22,7 @@ public class Util {
         }
     }
 
-    /**
-     * Метод для получения соединения с базой данных
-     * @return объект Connection
-     */
+
     public static Connection getConnection() {
         Connection connection = null;
         try {
