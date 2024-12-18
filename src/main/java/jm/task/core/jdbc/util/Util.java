@@ -1,5 +1,11 @@
 package jm.task.core.jdbc.util;
 
+import jm.task.core.jdbc.model.User;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -28,10 +34,22 @@ public class Util {
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
-            System.err.println("Ошибка подключения к базе данных: " + e.getMessage());
+            System.err.println("Ошибка подключения (JDBC) к базе данных: " + e.getMessage());
             e.printStackTrace();
         }
         return connection;
+    }
+    public static Session getSession() {
+        Session session = null;
+        try {
+            Configuration configuration = new Configuration().addAnnotatedClass(User.class);
+            SessionFactory sessionFactory = configuration.buildSessionFactory();
+            session = sessionFactory.getCurrentSession();
+        } catch (HibernateException e) {
+            System.err.println("Ошибка подключения (Hibernate) к базе данных: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return session;
     }
     // реализуйте настройку соеденения с БД
 }
