@@ -15,11 +15,15 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-
+        session.beginTransaction();
+        session.getTransaction().commit();
     }
 
     @Override
     public void dropUsersTable() {
+        session.beginTransaction();
+        session.createNativeQuery("drop table if exists users");
+        session.getTransaction().commit();
         session.close();
     }
 
@@ -49,6 +53,5 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void cleanUsersTable() {
         session.createQuery("delete from User").executeUpdate();
-
     }
 }

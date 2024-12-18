@@ -35,29 +35,17 @@ public class Main {
 
 //        ========================== Hibernate ========================================
 
-
-//        Configuration configuration = new Configuration().addAnnotatedClass(User.class);
-//
-//        SessionFactory sessionFactory = configuration.buildSessionFactory();
-//
-//        Session session = sessionFactory.getCurrentSession();
-//
-//        User user;
-//        try {
-//            session.beginTransaction();
-//            user = session.get(User.class, 2L);
-//            session.getTransaction().commit();
-//        } finally {
-//            session.close();
-//        }
        UserDao userDao = new UserDaoHibernateImpl();
+
+
+
 //
 //        for (User user : userDao.getAllUsers()) {
 //            System.out.println(user);
 //        }
 
         userDao.saveUser("Нурик", "Нурик", (byte) 19);
-
+        userDao.dropUsersTable();
 
 //        System.out.println(user);
         // реализуйте алгоритм здесь
