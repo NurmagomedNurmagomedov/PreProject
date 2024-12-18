@@ -5,49 +5,64 @@ import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 public class Main {
     public static void main(String[] args) {
-//        UserService userService = new UserServiceImpl();
-//        userService.createUsersTable(); // созддать таблицу
-//
-//        userService.saveUser("Нурмагомед", "Нурмагомедов", (byte) 46);
-//        userService.saveUser("Шамиль", "Нурмагомедов", (byte) 18);
-//        userService.saveUser("Амина", "Нурмагомедова", (byte) 14);
-//        userService.saveUser("Напи", "Нурмагомедова", (byte) 39);
-//
-//        for (User user : userService.getAllUsers()) { // Вывести список всех пользователей
-//            System.out.println(user);
-//        }
 
-//        userService.removeUserById(1); // Удаление пользователя с Ид 1
-//
-//        for (User user : userService.getAllUsers()) { // Вывести список всех пользователей
-//            System.out.println(user);
-//        }
-//
-//        userService.cleanUsersTable(); //удаление всех пользователей из таблицы
-//
-//        userService.dropUsersTable(); //удалить таблицу
+
+//        ========================== JDBC ========================================
+        UserService userService = new UserServiceImpl();
+
+        // созддать таблицу
+        userService.createUsersTable();
+
+        // Добавление пользователей
+        userService.saveUser("Елена", "Заярная", (byte) 18);
+        userService.saveUser("Нурмагомед", "Нурмагомедов", (byte) 46);
+        userService.saveUser("Михаил", "Юриков", (byte) 19);
+        userService.saveUser("Артур", "Каныбеков", (byte) 26);
+        userService.saveUser("Вячеслав", "Калиновский", (byte) 18);
+
+        // Вывести всех пользователей
+        for (User user : userService.getAllUsers()) { // Вывести список всех пользователей
+            System.out.println(user);
+        }
+
+        // Уддаление пользователя с Id 2
+        userService.removeUserById(2);
+
+        //удаление всех пользователей из таблицы
+        userService.cleanUsersTable();
+
+        //удалить таблицу
+        userService.dropUsersTable();
 
 //        ========================== Hibernate ========================================
 
-       UserDao userDao = new UserDaoHibernateImpl();
+        UserDao userDao = new UserDaoHibernateImpl();
 
+        // Создание таблицы
+        userService.createUsersTable();
 
+        // Добавление пользователей
+        userDao.saveUser("Елена", "Заярная", (byte) 18);
+        userDao.saveUser("Нурмагомед", "Нурмагомедов", (byte) 46);
+        userDao.saveUser("Михаил", "Юриков", (byte) 19);
+        userDao.saveUser("Артур", "Каныбеков", (byte) 26);
+        userDao.saveUser("Вячеслав", "Калиновский", (byte) 18);
 
-//
-//        for (User user : userDao.getAllUsers()) {
-//            System.out.println(user);
-//        }
+        // Вывести всех пользователей
+        for (User user : userDao.getAllUsers()) {
+            System.out.println(user);
+        }
 
-        userDao.saveUser("Нурик", "Нурик", (byte) 19);
-        userDao.dropUsersTable();
+        // Уддаление пользователя с Id
+        userService.removeUserById(2);
 
-//        System.out.println(user);
-        // реализуйте алгоритм здесь
+        //удаление всех пользователей из таблицы
+        userService.cleanUsersTable();
+
+        //удалить таблицу
+        userService.dropUsersTable();
     }
 }

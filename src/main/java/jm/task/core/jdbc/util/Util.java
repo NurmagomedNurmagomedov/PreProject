@@ -6,31 +6,43 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class Util {
-    private Util() {
-    }
-
     // Константы для подключения к базе данных
-    private static final String URL = "jdbc:postgresql://localhost:5432/PreProject";
-    private static final String USERNAME = "preproject"; // имя пользователя
-    private static final String PASSWORD = "123"; // пароль
+    private static String URL;// = "jdbc:postgresql://localhost:5432/PreProject";
+    private static String USERNAME;// = "preproject"; // имя пользователя
+    private static String PASSWORD;// = "123"; // пароль
 
     static {
-        try {
+        try (InputStream input = Util.class.getClassLoader().getResourceAsStream("hibernate.properties")) {
             // Загрузка драйвера PostgreSQL
-            Class.forName("org.postgresql.Driver");
+            Properties properties = new Properties();
+            properties.load(input);
+            URL = properties.getProperty("hibernate.connection.url");
+            USERNAME = properties.getProperty("hibernate.connection.username");
+            PASSWORD = properties.getProperty("hibernate.connection.password");
+            Class.forName(properties.getProperty("hibernate.driver_class"));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Не удалось загрузить драйвер PostgreSQL", e);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("Не найден файл с настройками подключения JDBC \"Hibernate.properties\"", e);
+        } catch (IOException e) {
+            throw new RuntimeException("Ошибка чтения файла с настройками подключения JDBC \"Hibernate.properties\"", e);
         }
     }
 
+    private Util() {
+    }
 
     public static Connection getConnection() {
-        Connection connection = null;
+        Connection connection = null; // Получение значений по ключам
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
@@ -39,6 +51,7 @@ public class Util {
         }
         return connection;
     }
+
     public static Session getSession() {
         Session session = null;
         try {
