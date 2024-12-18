@@ -11,38 +11,38 @@ public class Main {
 
 
 //        ========================== JDBC ========================================
-        UserService userService = new UserServiceImpl();
-
-        // созддать таблицу
-        userService.createUsersTable();
-
-        // Добавление пользователей
-        userService.saveUser("Елена", "Заярная", (byte) 18);
-        userService.saveUser("Нурмагомед", "Нурмагомедов", (byte) 46);
-        userService.saveUser("Михаил", "Юриков", (byte) 19);
-        userService.saveUser("Артур", "Каныбеков", (byte) 26);
-        userService.saveUser("Вячеслав", "Калиновский", (byte) 18);
-
-        // Вывести всех пользователей
-        for (User user : userService.getAllUsers()) { // Вывести список всех пользователей
-            System.out.println(user);
-        }
-
-        // Уддаление пользователя с Id 2
-        userService.removeUserById(2);
-
-        //удаление всех пользователей из таблицы
-        userService.cleanUsersTable();
-
-        //удалить таблицу
-        userService.dropUsersTable();
+//        UserService userService = new UserServiceImpl();
+//
+//        // созддать таблицу
+//        userService.createUsersTable();
+//
+//        // Добавление пользователей
+//        userService.saveUser("Елена", "Заярная", (byte) 18);
+//        userService.saveUser("Нурмагомед", "Нурмагомедов", (byte) 46);
+//        userService.saveUser("Михаил", "Юриков", (byte) 19);
+//        userService.saveUser("Артур", "Каныбеков", (byte) 26);
+//        userService.saveUser("Вячеслав", "Калиновский", (byte) 18);
+//
+//        // Вывести всех пользователей
+//        for (User user : userService.getAllUsers()) { // Вывести список всех пользователей
+//            System.out.println(user);
+//        }
+//
+//        // Уддаление пользователя с Id 2
+//        userService.removeUserById(2);
+//
+//        //удаление всех пользователей из таблицы
+//        userService.cleanUsersTable();
+//
+//        //удалить таблицу
+//        userService.dropUsersTable();
 
 //        ========================== Hibernate ========================================
 
         UserDao userDao = new UserDaoHibernateImpl();
 
         // Создание таблицы
-        userService.createUsersTable();
+        userDao.createUsersTable();
 
         // Добавление пользователей
         userDao.saveUser("Елена", "Заярная", (byte) 18);
@@ -57,12 +57,12 @@ public class Main {
         }
 
         // Уддаление пользователя с Id
-        userService.removeUserById(2);
+        userDao.removeUserById(2);
 
         //удаление всех пользователей из таблицы
-        userService.cleanUsersTable();
+        userDao.cleanUsersTable();
 
         //удалить таблицу
-        userService.dropUsersTable();
+        userDao.dropUsersTable();
     }
 }
