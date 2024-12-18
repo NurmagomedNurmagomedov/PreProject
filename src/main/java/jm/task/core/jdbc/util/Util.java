@@ -54,14 +54,9 @@ public class Util {
 
     public static Session getSession() {
         Session session = null;
-        try {
             Configuration configuration = new Configuration().addAnnotatedClass(User.class);
             SessionFactory sessionFactory = configuration.buildSessionFactory();
-            session = sessionFactory.getCurrentSession();
-        } catch (HibernateException e) {
-            System.err.println("Ошибка подключения (Hibernate) к базе данных: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
+            session = sessionFactory.openSession(); //.getCurrentSession();
         return session;
     }
     // реализуйте настройку соеденения с БД
